@@ -4,7 +4,7 @@ path = "resume"
 +++
 
 {% admonition(type="info", title="Information") %}
-You can download a shorter .pdf resume by [following this link](resume/resume.pdf).
+You can download a shorter .pdf resume by [following this link](resume.pdf).
 {% end %}
 
 
