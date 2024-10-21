@@ -1,0 +1,348 @@
+<!doctype html>
+<html class="not-ready lg:text-base" lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+  <!-- Title -->
+  <title>
+    Resume - Meteor Falls
+  </title>
+
+  <!-- Meta -->
+  <meta name="theme-color" />
+
+  
+  <!-- Author -->
+  
+  <!---->
+  
+  <!---->
+  
+  <!---->
+  
+  <!---->
+  
+  <!---->
+  <meta name="description" content="Resume" />
+  <meta name="author" content="Marco Geremia" />
+  <!-- The Open Graph protocol -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Resume" />
+  <meta property="og:site_name" content="Meteor Falls" />
+  <meta property="og:description" content="Resume" />
+  <meta property="og:url" content="https:&#x2F;&#x2F;marco.geremia.dev&#x2F;resume&#x2F;" />
+  
+  <!---->
+  
+  <!---->
+  
+  <!---->
+  
+  <meta property="og:image" content="https://marco.geremia.dev/img/avatar.jpg" />
+  
+  <!---->
+  
+
+  <!-- CSS & JS -->
+  <link rel="preload stylesheet" as="style" href="https://marco.geremia.dev/main.css" />
+  <style>
+    :root {
+      --bg: #f4f4f5;
+      --bg-dark: #18181b;
+      --header: #e4e4e7;
+      --header-dark: #27272a;
+    }
+  </style>
+
+  
+
+  <!-- Dark Icon -->
+  <link rel="preload" as="image" href="https://marco.geremia.dev/icons/theme.svg" />
+
+  <!-- Math -->
+  
+  <!---->
+
+  <!-- Mermaid -->
+  
+  <!---->
+
+  <!-- Favicon -->
+  <link rel="icon" href="https://marco.geremia.dev/favicon.ico" />
+  <link rel="apple-touch-icon" href="https://marco.geremia.dev/apple-touch-icon.png" />
+
+  <!-- Feeds -->
+  
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https:&#x2F;&#x2F;marco.geremia.dev&#x2F;resume&#x2F;" />
+
+  <!-- Head inject -->
+  
+</head>
+
+  <body class="text-black duration-200 ease-out dark:text-white">
+    <header
+  class="header fixed top-0 z-40 mx-auto min-h-[3.5rem] w-full"
+>
+  <div class="mx-auto w-full max-w-4xl p-3 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center">
+        <a class="text-2xl font-semibold" href="https://marco.geremia.dev">Meteor Falls</a>
+        <div
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0] [background:url(./icons/theme.svg)_left_center/cover_no-repeat] dark:invert dark:[background-position:right]"
+          role="button"
+          aria-label="Dark"
+        ></div>
+      </div>
+      
+      <div
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+        role="button"
+        aria-label="Menu"
+      ></div>
+      
+    </div>
+    <script>
+      // base
+      const htmlClass = document.documentElement.classList;
+      setTimeout(() => {
+        htmlClass.remove("not-ready");
+      }, 10);
+
+      // mobile menu
+      const btnMenu = document.querySelector(".btn-menu");
+      btnMenu?.addEventListener("click", () => {
+        htmlClass.toggle("open");
+      });
+
+      // dark theme
+      const setDark = (isDark) => {
+        if (isDark) {
+          document.body.dispatchEvent(new CustomEvent("set-theme", { detail: "dark" }));
+          htmlClass.add("dark");
+        } else {
+          document.body.dispatchEvent(new CustomEvent("set-theme", { detail: "light" }));
+          htmlClass.remove("dark");
+        }
+        localStorage.setItem("dark", isDark);
+      };
+
+      // init
+      const darkScheme = window.matchMedia("(prefers-color-scheme: dark)");
+      if (htmlClass.contains("dark")) {
+        setDark(true);
+      } else {
+        const darkVal = localStorage.getItem("dark");
+        setDark(darkVal ? darkVal === "true" : darkScheme.matches);
+      }
+
+      // listen system
+      darkScheme.addEventListener("change", (event) => {
+        setDark(event.matches);
+      });
+
+      // manual switch
+      const btnDark = document.querySelector(".btn-dark");
+      btnDark.addEventListener("click", () => {
+        setDark(localStorage.getItem("dark") !== "true");
+      });
+    </script>
+    
+    <nav class="flex w-full items-center lg:w-auto">
+      <ul
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0"
+      >
+        
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://marco.geremia.dev/resume"
+            >Resume</a
+          >
+        </li>
+        
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://marco.geremia.dev/about"
+            >About</a
+          >
+        </li>
+        
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://marco.geremia.dev/archive"
+            >Archive</a
+          >
+        </li>
+        
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://marco.geremia.dev/tags"
+            >Tags</a
+          >
+        </li>
+        
+      </ul>
+      <!-- Header Nav inject -->
+      
+    </nav>
+    
+  </div>
+</header>
+
+
+    <!-- Body Start inject -->
+    
+
+    <main
+      class="prose prose-neutral relative mx-auto min-h-[calc(100%-9rem)] max-w-3xl break-words px-4 pb-16 pt-32 dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg"
+    >
+      
+<article>
+  <header class="mb-16">
+    <h1 class="!my-0 pb-2.5">Resume</h1>
+  </header>
+
+  <section> <!---->
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-[var(--admonition-bg)]"
+  style="--admonition-bg: rgba(83, 211, 230, 0.1)"
+>
+  <div class="flex items-center rounded-t-lg bg-[var(--admonition-bg)] p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(./icons/info.svg)"
+    >
+      info
+    </div>
+    <span><strong>Information</strong></span>
+  </div>
+  <div class="pl-4"><p>You can download a shorter .pdf resume by <a href="resume.pdf">following this link</a>.</p>
+</div>
+</div>
+<h2 id="profile">Profile</h2>
+<p>I am a precise person, motivated and easily engaged in new projects, ideas and technologies. Hard working and meticulous, great gregarious in a team context. Ready to discuss my decisions and the ones made by those around me. Capable of retrieving information by myself and diligent in learning and keeping up the pace. I have high consideration of my potential as a problem solver, and consider myself a genuine individual. I embrace humility and respect my limits and those of my colleagues.</p>
+<h2 id="work-experience">Work experience</h2>
+<h3 id="infineon-technologies-ag"><a href="https://www.infineon.com/" target="_blank">Infineon Technologies AG</a></h3>
+<p>[04/2024 - Current]<br />
+Employed full-time as a <em>senior specialist firmware developer</em> in the automotive division (smart power). Development methodology ASPICE and ISO26262 compliant. Including but not limited to:</p>
+<ol>
+<li>Firmware bootrom architecture and design (Enterprise Architect) according to software requirements</li>
+<li>Firmware bootrom implementation (C)</li>
+<li>Firmware unit testing and integration testing (Tessy, ARMKeil)</li>
+<li>Tooling and deployment automation (Python, BAT scripts, Jenkins)</li>
+</ol>
+<h3 id="m31-srl"><a href="https://www.m31.com/" target="_blank">M31 SRL</a></h3>
+<p>[10/2022 - 04/2024]<br />
+Employed full-time as a <em>junior firmware engineer</em> biomedical field consultancy. Main tasks involve:</p>
+<ol>
+<li>Design, development and testing of system-level software on NXP ARM embedded linux platform using gRPC framework (Go, Python)</li>
+<li>Feature specification, integration and bug-fixing for third party clients of system-level legacy software on NXP ARM embedded linux platform (C)</li>
+<li>Firmware development, debugging and maintenance on Cortex-M architecture on STM32 platform (C)</li>
+<li>Build, testing and deployment automation (Python, Bash Make Scripts, Bitbucket pipelines)</li>
+<li>Hardware functional testing and report generation</li>
+<li>Development of 3D machine digital twin using g3n-engine (OpenGL)</li>
+</ol>
+<h3 id="bbm-spa"><a href="https://www.bbm-railway.com/" target="_blank">BBM SPA</a></h3>
+<p>[08/2022-09/2022]<br />
+Employed as an automation engineer in the railway division. 
+My tasks ranged from PLC programming, hydraulic/electric schematics analysis and HMI development using LabView. 
+My journey with this company was short given I did not fit in the slightest with the mindset (and the technology platform)</p>
+<h3 id="euclidlabs-srl"><a href="https://www.euclidlabs.it/" target="_blank">Euclidlabs SRL</a></h3>
+<p>[04/2022-07/2022]<br />
+Intern during the curricular internship. Mainly programmed ABB 6-axis industrial manipulators and learned how to hate C# and Microsoft developer experience.</p>
+<h2 id="education">Education</h2>
+<h3 id="master-s-degree">Master's degree</h3>
+<p>[2020-2022]<br />
+<strong>Control Systems Engineering</strong><br />
+<em>Rigidity theory in presence of noise for localization and control of multiagent systems</em></p>
+<h3 id="bachelor-s-degree">Bachelor's degree</h3>
+<p>[2017-2020]<br />
+<strong>Computer Engineering</strong><br />
+<em>Reverse engineering of CAN messages for terminal container movement machinery</em></p>
+<h2 id="hard-skills">Hard skills</h2>
+<ul>
+<li>Advance knowledge of the Go programming language</li>
+<li>Advance knowledge of the gRPC framework</li>
+<li>Advance knowledge of the C programming language</li>
+<li>Good knowledge of the Python programming language</li>
+<li>Good knowledge of microprocessors features and peripherals</li>
+<li>Good knowledge of ARM Cortex-M architecture</li>
+<li>Good knowledge of Linux OS usage and configuration</li>
+<li>Good knowledge of Rust programming language</li>
+<li>Basic knowledge of HTML and CSS</li>
+<li>Data manipulation (matplotlib, numpy, pandas) for hardware testing and report production (markdown, latex, word, excel)</li>
+<li>Discrete knowledge of computer vision methodologies (OpenCV)</li>
+<li>Discrete knowledge of Matlab and Simulink (prototyping and simulation)</li>
+<li>Scripting and automation (bash/powershell/command prompt)</li>
+<li>Make build system</li>
+<li>Git versioning</li>
+<li>CI/CD with Jenkins/Bitbucket pipelines</li>
+<li>Used to Agile workflow</li>
+</ul>
+<h2 id="soft-skills">Soft skills</h2>
+<ul>
+<li>Independent in retrieving information and in finding solutions</li>
+<li>Works nicely in a team</li>
+<li>Open to feedback</li>
+<li>Can organize my work to respect deadlines</li>
+</ul>
+<h2 id="wishlist">Wishlist</h2>
+<ul>
+<li>Senior figures willing to share knowledge and feedback</li>
+<li>Learn even more about Linux embedded</li>
+<li>Deepen my knowledge of modern system programming languages (Rust/Zig)</li>
+<li>Expand my competence in micro-electronics and firmware programming</li>
+<li>Become a vim ninja</li>
+</ul>
+<h2 id="blacklist">Blacklist</h2>
+<ul>
+<li><em>We've Always Done It This Way</em></li>
+<li>Employ technologies due to fashion and catchphrases without a real need for them (blockchain, crypto-currency, cloud and the like)</li>
+<li>Being left to maintain legacy unmaintainable <strong>spaghetti</strong> platforms</li>
+</ul>
+</section>
+</article>
+
+    </main>
+
+    <footer class="mx-auto flex max-w-3xl flex-wrap items-center px-8 py-4 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+    <!---->
+    <!---->
+    &copy; 2020 - 2024<!---->
+    
+    <a class="link" href="https://marco.geremia.dev">
+      Marco Geremia
+    </a>
+     |<!---->
+    <!---->
+    <a class="link" href="https:&#x2F;&#x2F;creativecommons.org&#x2F;licenses&#x2F;by-sa&#x2F;4.0&#x2F;deed" rel="noopener" target="_blank">
+      CC BY-SA 4.0
+    </a>
+    <!---->
+    
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <a class="link mr-6 lg:ml-6" href="https://www.getzola.org/" rel="noopener" target="_blank">
+      Powered by Zola
+    </a>
+    <a class="link" href="https://github.com/st1020/kita" rel="noopener" target="_blank">✎ Kita</a>
+  </div>
+  <!-- Footer inject -->
+  
+</footer>
+
+
+    <!-- Body End inject -->
+    
+  </body>
+</html>
