@@ -101,7 +101,7 @@ url = "https://linkedin.com/in/xomcar"
 
 [[extra.menu]]
 name = "Resume"
-url = "$BASE_URL/resume"
+url = "https://rxresu.me/mark.geremia/marco-geremia-qblox"
 
 [[extra.menu]]
 name = "About"
