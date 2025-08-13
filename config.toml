@@ -86,9 +86,9 @@ avatar_invert = false
 name = "email"
 url = "mailto:marco@geremia.dev"
 
-[[extra.profile.social]]
-name = "github"
-url = "https://github.com/xomcar"
+# [[extra.profile.social]]
+# name = "github"
+# url = "https://github.com/xomcar"
 
 [[extra.profile.social]]
 name = "linkedin"
