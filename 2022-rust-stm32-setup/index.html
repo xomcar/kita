@@ -1,0 +1,530 @@
+<!doctype html>
+<html class="not-ready lg:text-base" lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+  <!-- Title -->
+  <title>
+    Using Rust for development on STM32 platforms - Meteor Falls
+  </title>
+
+  <!-- Meta -->
+  <meta name="theme-color" />
+
+  
+  <!-- Author -->
+  
+  <!---->
+  
+  <!---->
+  
+  <!---->
+  
+  <!---->
+  
+  <!---->
+  <meta name="description" content="Working on ARM Macs!" />
+  <meta name="author" content="Marco Geremia" />
+  <!-- The Open Graph protocol -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Using Rust for development on STM32 platforms" />
+  <meta property="og:site_name" content="Meteor Falls" />
+  <meta property="og:description" content="Working on ARM Macs!" />
+  <meta property="og:url" content="https:&#x2F;&#x2F;marco.geremia.dev&#x2F;2022-rust-stm32-setup&#x2F;" />
+  
+  <!---->
+  
+  <!---->
+  
+  <!---->
+  
+  <meta property="og:image" content="https://marco.geremia.dev/img/avatar.jpg" />
+  
+  <!---->
+  
+
+  <!-- CSS & JS -->
+  <link rel="preload stylesheet" as="style" href="https://marco.geremia.dev/main.css" />
+  <style>
+    :root {
+      --bg: #f4f4f5;
+      --bg-dark: #18181b;
+      --header: #e4e4e7;
+      --header-dark: #27272a;
+    }
+  </style>
+
+  
+
+  <!-- Dark Icon -->
+  <link rel="preload" as="image" href="https://marco.geremia.dev/icons/theme.svg" />
+
+  <!-- Math -->
+  
+  <!---->
+
+  <!-- Mermaid -->
+  
+  <!---->
+
+  <!-- Favicon -->
+  <link rel="icon" href="https://marco.geremia.dev/favicon.ico" />
+  <link rel="apple-touch-icon" href="https://marco.geremia.dev/apple-touch-icon.png" />
+
+  <!-- Feeds -->
+  
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https:&#x2F;&#x2F;marco.geremia.dev&#x2F;2022-rust-stm32-setup&#x2F;" />
+
+  <!-- Head inject -->
+  
+</head>
+
+  <body class="text-black duration-200 ease-out dark:text-white">
+    <header
+  class="header fixed top-0 z-40 mx-auto min-h-[3.5rem] w-full"
+>
+  <div class="mx-auto w-full max-w-4xl p-3 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center">
+        <a class="text-2xl font-semibold" href="https://marco.geremia.dev">Meteor Falls</a>
+        <div
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0] [background:url(./icons/theme.svg)_left_center/cover_no-repeat] dark:invert dark:[background-position:right]"
+          role="button"
+          aria-label="Dark"
+        ></div>
+      </div>
+      
+      <div
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+        role="button"
+        aria-label="Menu"
+      ></div>
+      
+    </div>
+    <script>
+      // base
+      const htmlClass = document.documentElement.classList;
+      setTimeout(() => {
+        htmlClass.remove("not-ready");
+      }, 10);
+
+      // mobile menu
+      const btnMenu = document.querySelector(".btn-menu");
+      btnMenu?.addEventListener("click", () => {
+        htmlClass.toggle("open");
+      });
+
+      // dark theme
+      const setDark = (isDark) => {
+        if (isDark) {
+          document.body.dispatchEvent(new CustomEvent("set-theme", { detail: "dark" }));
+          htmlClass.add("dark");
+        } else {
+          document.body.dispatchEvent(new CustomEvent("set-theme", { detail: "light" }));
+          htmlClass.remove("dark");
+        }
+        localStorage.setItem("dark", isDark);
+      };
+
+      // init
+      const darkScheme = window.matchMedia("(prefers-color-scheme: dark)");
+      if (htmlClass.contains("dark")) {
+        setDark(true);
+      } else {
+        const darkVal = localStorage.getItem("dark");
+        setDark(darkVal ? darkVal === "true" : darkScheme.matches);
+      }
+
+      // listen system
+      darkScheme.addEventListener("change", (event) => {
+        setDark(event.matches);
+      });
+
+      // manual switch
+      const btnDark = document.querySelector(".btn-dark");
+      btnDark.addEventListener("click", () => {
+        setDark(localStorage.getItem("dark") !== "true");
+      });
+    </script>
+    
+    <nav class="flex w-full items-center lg:w-auto">
+      <ul
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0"
+      >
+        
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://rxresu.me/mark.geremia/marco-geremia-qblox"
+            >Resume</a
+          >
+        </li>
+        
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://marco.geremia.dev/about"
+            >About</a
+          >
+        </li>
+        
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://marco.geremia.dev/archive"
+            >Archive</a
+          >
+        </li>
+        
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://marco.geremia.dev/tags"
+            >Tags</a
+          >
+        </li>
+        
+      </ul>
+      <!-- Header Nav inject -->
+      
+    </nav>
+    
+  </div>
+</header>
+
+
+    <!-- Body Start inject -->
+    
+
+    <main
+      class="prose prose-neutral relative mx-auto min-h-[calc(100%-9rem)] max-w-3xl break-words px-4 pb-16 pt-32 dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg"
+    >
+      
+<article>
+  <!-- Page Start inject -->
+  
+
+  <header class="mb-16">
+    <h1 class="!my-0 pb-2.5">Using Rust for development on STM32 platforms</h1>
+    <div class="text-sm antialiased opacity-60">
+  
+  <time>2023-09-07</time>
+  <span class="mx-1">&middot;</span>
+  <span>5min</span>
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  
+  
+  <!-- Page Info inject -->
+  
+</div>
+
+  </header>
+
+  
+
+  <!-- TOC -->
+  <!---->
+<div class="block-bg mb-12 flex rounded-lg p-2 text-lg">
+  <details>
+    <summary class="cursor-pointer py-1 pl-4">
+      <span>Table of Contents</span>
+    </summary>
+    <div class="px-2">
+      <ul>
+        
+        <li>
+          <a class="no-underline hover:underline" href="https://marco.geremia.dev/2022-rust-stm32-setup/#the-objective"
+            >The objective</a
+          >
+          
+        </li>
+        
+        <li>
+          <a class="no-underline hover:underline" href="https://marco.geremia.dev/2022-rust-stm32-setup/#the-equipment"
+            >The equipment</a
+          >
+          
+        </li>
+        
+        <li>
+          <a class="no-underline hover:underline" href="https://marco.geremia.dev/2022-rust-stm32-setup/#documentation"
+            >Documentation</a
+          >
+          
+        </li>
+        
+        <li>
+          <a class="no-underline hover:underline" href="https://marco.geremia.dev/2022-rust-stm32-setup/#setting-up-the-necessary-tools"
+            >Setting up the necessary tools</a
+          >
+          
+        </li>
+        
+        <li>
+          <a class="no-underline hover:underline" href="https://marco.geremia.dev/2022-rust-stm32-setup/#setting-up-the-project-space"
+            >Setting up the project space</a
+          >
+          
+        </li>
+        
+        <li>
+          <a class="no-underline hover:underline" href="https://marco.geremia.dev/2022-rust-stm32-setup/#setting-up-build-debug-and-deploy"
+            >Setting up build, debug and deploy</a
+          >
+          
+        </li>
+        
+        <li>
+          <a class="no-underline hover:underline" href="https://marco.geremia.dev/2022-rust-stm32-setup/#extra-setting-up-visual-studio-debugging"
+            >Extra: setting up visual studio debugging</a
+          >
+          
+        </li>
+        
+      </ul>
+    </div>
+  </details>
+</div>
+
+<!---->
+
+  <!-- Content -->
+  <section><p>It has come to my attention that the <a href="https://www.rust-lang.org/">Rust</a> programming language is trying to catch up as the new industry stardard for developing low level software as a modern equivalent to the <em>good old</em> C programming language, sponsoring many QoL changes.
+This morning I got tired of reading yet another Linkedin post regarding this trend, so I tried to jumpstart myself into the topic.</p>
+<h2 id="the-objective">The objective</h2>
+<p>The idea was that of being able to setup a simple <a href="https://www.rust-lang.org/">Rust</a> application to run on an STM32 processor.
+What I got to at the end is the ability to run such application with building/debugging capabilities fully integrated in <a href="https://code.visualstudio.com/">Visual Studio Code</a>.</p>
+<h2 id="the-equipment">The equipment</h2>
+<p>My host machine is Macbook Air M2 (ARM-based platform), and I will be using a Nucleo-64 <a href="https://www.st.com/en/microcontrollers-microprocessors/stm32l476rg.html">STM32L476</a> development board I borrowed from work.</p>
+<h2 id="documentation">Documentation</h2>
+<p>First and foremost I checkout out the documentation sources about the topic available on the internet.
+Luckily, there are a series of very well written books about the issue which one can access from <a href="https://docs.rust-embedded.org/book/">Rust-embedded book</a>. The books are mainly based on other board models but can easily be ported.
+Secondly, it's always a good idea to have the <a href="https://www.st.com/resource/en/reference_manual/rm0351-stm32l47xxx-stm32l48xxx-stm32l49xxx-and-stm32l4axxx-advanced-armbased-32bit-mcus-stmicroelectronics.pdf">reference manual for the board</a> close at hand.</p>
+<h2 id="setting-up-the-necessary-tools">Setting up the necessary tools</h2>
+<p>Theoretically, all that is needed is a <a href="https://www.rust-lang.org/">Rust</a> installation, however some more tooling is needed in order to setup debug and flashing properly.
+First, the target architecture toolchain must be made available. In my case, the board has a Cortex M4 with integrated floating point computation: </p>
+<pre data-lang="zsg" style="background-color:#2b303b;color:#c0c5ce;" class="language-zsg "><code class="language-zsg" data-lang="zsg"><span>rustup target add thumbv7em-none-eabihf
+</span></code></pre>
+<p>In order to interface gdb with the ST-Link, <a href="https://openocd.org/">openocd</a> is needed. 
+Having brew installed this is an easy feat.
+Note that I am using the latest version available: your mileage may vary.</p>
+<pre data-lang="zsh" style="background-color:#2b303b;color:#c0c5ce;" class="language-zsh "><code class="language-zsh" data-lang="zsh"><span style="color:#bf616a;">brew</span><span> install openocd</span><span style="color:#bf616a;"> --HEAD
+</span></code></pre>
+<p>Thankfully <a href="https://www.sourceware.org/gdb/">gdb</a> is finally available on ARM Mac architecture, to install the toolchain:</p>
+<pre data-lang="zsh" style="background-color:#2b303b;color:#c0c5ce;" class="language-zsh "><code class="language-zsh" data-lang="zsh"><span style="color:#bf616a;">brew</span><span> install armmbed/formulae/arm-none-eabi-gcc
+</span></code></pre>
+<p>As a bonus, one can install the cargo-generate utility to jumpstart a project without much hassle</p>
+<pre data-lang="zsh" style="background-color:#2b303b;color:#c0c5ce;" class="language-zsh "><code class="language-zsh" data-lang="zsh"><span style="color:#bf616a;">cargo</span><span> install cargo-generate
+</span></code></pre>
+<h2 id="setting-up-the-project-space">Setting up the project space</h2>
+<p>Using cargo-generate this is almost trivial. Go to your projects folder in you terminal and type:</p>
+<pre data-lang="zsh" style="background-color:#2b303b;color:#c0c5ce;" class="language-zsh "><code class="language-zsh" data-lang="zsh"><span style="color:#bf616a;">cargo</span><span> generate</span><span style="color:#bf616a;"> --git</span><span> https://github.com/rust-embedded/cortex-m-quickstart
+</span></code></pre>
+<p>Follow the prompt to give a proper name to your project. 
+I choose <code>l4760-demo</code>.
+To view and edit the project metadata properties, use the <code>Cargo.toml</code> file.</p>
+<h2 id="setting-up-build-debug-and-deploy">Setting up build, debug and deploy</h2>
+<p>The project quickstart created a lot of userful configuration for us.
+First, we configure the memory layout of the board for the linker in the <code>memory.x</code> file.
+The values for my board are as follows, refer to the manual for yours:</p>
+<pre data-lang="zsh" style="background-color:#2b303b;color:#c0c5ce;" class="language-zsh "><code class="language-zsh" data-lang="zsh"><span style="color:#bf616a;">FLASH</span><span> : ORIGIN = 0x08000000, LENGTH = 1024K
+</span><span style="color:#bf616a;">RAM</span><span> : ORIGIN = 0x20000000, LENGTH = 96K
+</span></code></pre>
+<p>Proceeding to the configuration of <code>openocd.cfg</code>:</p>
+<pre data-lang="zsh" style="background-color:#2b303b;color:#c0c5ce;" class="language-zsh "><code class="language-zsh" data-lang="zsh"><span style="color:#96b5b4;">source </span><span style="color:#b48ead;">[</span><span>find interface/stlink.cfg</span><span style="color:#b48ead;">]
+</span><span style="color:#96b5b4;">source </span><span style="color:#b48ead;">[</span><span>find target/stm32l4x.cfg</span><span style="color:#b48ead;">]
+</span></code></pre>
+<p>In the case you want to use a cargo runner with gdb instead of visual studio to debug, you can configure <code>openocd.gdb</code>. The default values where fine for me.</p>
+<p>For configuring the cargo build and cargo run commands, open <code>.cargo/config.toml</code>
+and uncomment the proper setup. For my configuration:</p>
+<pre data-lang="zsh" style="background-color:#2b303b;color:#c0c5ce;" class="language-zsh "><code class="language-zsh" data-lang="zsh"><span style="color:#bf616a;">runner</span><span> = &quot;</span><span style="color:#a3be8c;">arm-none-eabi-gdb -q -x openocd.gdb</span><span>&quot;
+</span><span style="color:#bf616a;">target</span><span> = &quot;</span><span style="color:#a3be8c;">thumbv7em-none-eabihf</span><span>&quot;
+</span></code></pre>
+<p>Let's try quickly if the setup is working before setting up the visual studio integration.
+Edit <code>src/main.rs</code> with the following:</p>
+<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span>#![</span><span style="color:#bf616a;">no_main</span><span>]
+</span><span>#![</span><span style="color:#bf616a;">no_std</span><span>]
+</span><span>
+</span><span style="color:#b48ead;">use</span><span> panic_halt as _;
+</span><span>
+</span><span style="color:#b48ead;">use </span><span>cortex_m_rt::entry;
+</span><span style="color:#b48ead;">use </span><span>cortex_m_semihosting::hprintln;
+</span><span>
+</span><span>#[</span><span style="color:#bf616a;">entry</span><span>]
+</span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">main</span><span>() -&gt; ! {
+</span><span>    hprintln!(&quot;</span><span style="color:#a3be8c;">All your codebase are belong to us</span><span>&quot;).</span><span style="color:#96b5b4;">unwrap</span><span>();
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">loop </span><span>{}
+</span><span>}
+</span></code></pre>
+<p>This simple program will print a string on the host console using semihosting.
+For the specifics on the meaning of all the directives and imports, I point you to the
+<a href="https://docs.rust-embedded.org/book/">Rust-embedded book</a>.</p>
+<p>Now plug the board to the computer and run openocd:</p>
+<pre data-lang="zsh" style="background-color:#2b303b;color:#c0c5ce;" class="language-zsh "><code class="language-zsh" data-lang="zsh"><span style="color:#bf616a;">openocd
+</span></code></pre>
+<p>Open another terminal window and use cargo run:</p>
+<pre data-lang="zsh" style="background-color:#2b303b;color:#c0c5ce;" class="language-zsh "><code class="language-zsh" data-lang="zsh"><span style="color:#bf616a;">cargo</span><span> run
+</span></code></pre>
+<p>The output should stop at the default Reset halt:</p>
+<pre data-lang="zsh" style="background-color:#2b303b;color:#c0c5ce;" class="language-zsh "><code class="language-zsh" data-lang="zsh"><span style="color:#bf616a;">0x08000402</span><span> in cortex_m_rt::Reset () </span><span style="color:#bf616a;">at</span><span> src/lib.rs:497
+</span><span style="color:#bf616a;">497</span><span>     pub unsafe extern &quot;</span><span style="color:#a3be8c;">C</span><span>&quot; fn Reset() </span><span style="color:#bf616a;">-</span><span>&gt; ! {
+</span></code></pre>
+<p>Enter <code>c</code> or <code>continue</code> to proceed to <code>main</code> entry-point</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>Breakpoint 4, l476_demo::__cortex_m_rt_main_trampoline () at src/main.rs:13
+</span><span>13      #[entry]
+</span></code></pre>
+ <!---->
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-[var(--admonition-bg)]"
+  style="--admonition-bg: rgba(255, 145, 0, 0.1)"
+>
+  <div class="flex items-center rounded-t-lg bg-[var(--admonition-bg)] p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(./icons/warning.svg)"
+    >
+      warning
+    </div>
+    <span><strong>Tip</strong></span>
+  </div>
+  <div class="pl-4"><p>In the case the name of function are mangled, shown as <code>???</code>, or if the terminal hangs after continuing, check if the <code>memory.x</code> file is configured correctly. When you edit <code>memory.x</code>, remember to also run a <code>cargo clean</code> since the file is not monitored for incremental builds.</p>
+</div>
+</div>
+<p>If all is well, by continuing, the terminal where openocd is open shall now show <code>All your codebase are belong to us</code>.<br />
+<strong>Welcome to the embedded rust world!</strong></p>
+<h2 id="extra-setting-up-visual-studio-debugging">Extra: setting up visual studio debugging</h2>
+<p>Install the [cortex-debug] extension.
+Add the following configuration to the <code>.vscode/tasks.json</code> file</p>
+<pre data-lang="json" style="background-color:#2b303b;color:#c0c5ce;" class="language-json "><code class="language-json" data-lang="json"><span>{
+</span><span>    &quot;</span><span style="color:#a3be8c;">type</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">cortex-debug</span><span>&quot;,
+</span><span>    &quot;</span><span style="color:#a3be8c;">request</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">launch</span><span>&quot;,
+</span><span>    &quot;</span><span style="color:#a3be8c;">name</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">Debug (OpenOCD)</span><span>&quot;,
+</span><span>    &quot;</span><span style="color:#a3be8c;">servertype</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">openocd</span><span>&quot;,
+</span><span>    &quot;</span><span style="color:#a3be8c;">cwd</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">${workspaceRoot}</span><span>&quot;,
+</span><span>    &quot;</span><span style="color:#a3be8c;">preLaunchTask</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">Cargo Build (debug)</span><span>&quot;,
+</span><span>    &quot;</span><span style="color:#a3be8c;">runToEntryPoint</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">main</span><span>&quot;,
+</span><span>    &quot;</span><span style="color:#a3be8c;">preLaunchCommands</span><span>&quot;: [
+</span><span>        &quot;</span><span style="color:#a3be8c;">load</span><span>&quot;,
+</span><span>        &quot;</span><span style="color:#a3be8c;">monitor arm semihosting enable</span><span>&quot;
+</span><span>    ],
+</span><span>    &quot;</span><span style="color:#a3be8c;">executable</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">./target/thumbv7em-none-eabihf/debug/l476-demo</span><span>&quot;,
+</span><span>    &quot;</span><span style="color:#a3be8c;">device</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">STM32L476VGT6</span><span>&quot;,
+</span><span>    &quot;</span><span style="color:#a3be8c;">configFiles</span><span>&quot;: [
+</span><span>        &quot;</span><span style="color:#a3be8c;">interface/stlink.cfg</span><span>&quot;,
+</span><span>        &quot;</span><span style="color:#a3be8c;">target/stm32l4x.cfg</span><span>&quot;
+</span><span>    ],
+</span><span>}
+</span></code></pre>
+<p>This should be it. If you proceed running the debug configuration in vscode, you shall observe the
+debug prints on the <code>gdb-server</code> terminal which just spawned. Breaking points, variables, watches: all should be fine and dandy and working flawlessly.</p>
+</section>
+
+  <hr />
+
+  <!-- Post Taxonomies -->
+  
+<footer class="mt-12 flex flex-col">
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mb-1.5 mr-1.5 rounded-lg px-5 py-1.5">Tags </span>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://marco.geremia.dev/tags/rust/"
+      >rust</a
+    >
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://marco.geremia.dev/tags/arm/"
+      >arm</a
+    >
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://marco.geremia.dev/tags/microcontroller/"
+      >microcontroller</a
+    >
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://marco.geremia.dev/tags/stm32/"
+      >stm32</a
+    >
+    
+  </div>
+  
+</footer>
+
+<!---->
+
+  <!-- Post Nav -->
+  
+<nav class="block-bg mt-12 flex flex-wrap rounded-lg text-lg">
+  
+  <a
+    class="block-hover-mask flex min-w-[50%] grow items-center rounded-l-md p-6 pr-3 font-semibold no-underline"
+    href="https:&#x2F;&#x2F;marco.geremia.dev&#x2F;2022-jesolo-trip&#x2F;"
+    ><span class="mr-1.5">←</span><span>Jesolo trip</span></a
+  >
+  <!---->
+  
+</nav>
+
+<!---->
+
+  <!-- Comment -->
+  
+
+  <!-- Page End inject -->
+  
+</article>
+
+    </main>
+
+    <footer class="mx-auto flex max-w-3xl flex-wrap items-center px-8 py-4 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+    <!---->
+    <!---->
+    &copy; 2020 - 2025<!---->
+    
+    <a class="link" href="https://marco.geremia.dev">
+      Marco Geremia
+    </a>
+     |<!---->
+    <!---->
+    <a class="link" href="https:&#x2F;&#x2F;creativecommons.org&#x2F;licenses&#x2F;by-sa&#x2F;4.0&#x2F;deed" rel="noopener" target="_blank">
+      CC BY-SA 4.0
+    </a>
+    <!---->
+    
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <a class="link mr-6 lg:ml-6" href="https://www.getzola.org/" rel="noopener" target="_blank">
+      Powered by Zola
+    </a>
+    <a class="link" href="https://github.com/st1020/kita" rel="noopener" target="_blank">✎ Kita</a>
+  </div>
+  <!-- Footer inject -->
+  
+</footer>
+
+
+    <!-- Body End inject -->
+    
+  </body>
+</html>
